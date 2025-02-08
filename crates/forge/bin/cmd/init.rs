@@ -60,7 +60,8 @@ impl InitArgs {
             let template = if template.contains("://") {
                 template
             } else {
-                "https://github.com/".to_string() + &template
+                let trimmed_template = template.strip_prefix("github.com/").unwrap_or(&template);
+                "https://github.com/".to_string() + trimmed_template
             };
             sh_println!("Initializing {} from {}...", root.display(), template)?;
             // initialize the git repository
